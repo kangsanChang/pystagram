@@ -1,3 +1,4 @@
+# -*- coding : utf-8 -*-
 """pystagram URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -13,9 +14,15 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url
+from django.conf.urls import include, url
 from django.contrib import admin
+from photo import views
+
+# As of Django 1.10, the patterns module has been removed (it had been deprecated since 1.8).
+# just write url patterns directly
+# Django 1.8
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
+        url(r'^photo/$', views.single_photo, name='view_single_photo'),
+        url(r'^admin/', admin.site.urls),
 ]
