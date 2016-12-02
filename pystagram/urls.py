@@ -32,6 +32,7 @@ from photo import views
 urlpatterns = [
         url(r'^photo/(?P<photo_id>\d+)$', views.single_photo, name='view_single_photo'),
         url(r'^admin/', admin.site.urls),
+        url(r'^photo/upload/$', views.new_photo, name='new_photo'),
 ]
 
 from django.conf import settings

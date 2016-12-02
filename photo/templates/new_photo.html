@@ -1,0 +1,22 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<form method="POST" action="{% url 'new_photo' %}" enctype="multipart/form-data">
+  {% csrf_token %}
+  {{form.as_p}}
+
+  <p>
+    <input type="submit" />
+  </p>
+</form>
+
+{% endblock %}
+
+<!-- form은 new_photo 뷰 함수가 edit_form 폼 객체를 form이라는 템플릿 변수로 지정해 전달한 것
+이 객체의 instance method 인 as_p() 를 호출하면 각 폼 필드를 HTML 태그인 <p></p> 로
+감싸서 출력함. views.py 에 new_photo 가보면 form라는 이름으로 전달함 -->
+
+<!-- csrf_token은 CSRF(Cross Site Request Forgery)토큰을 만드는 템플릿 태그
+django 로 만든 웹 페이지에 접속하면 각 세션을 기반으로 CSRF토큰을 만들고, 이 토큰이 조작되거나
+존재하지 않으면 Form데이터를 Django로 동작하는 웹 애플리케이션 서버에 보내지 못함.
+보안상 거의 무조건 사용한다. -->

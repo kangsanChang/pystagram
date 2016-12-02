@@ -8,6 +8,8 @@ from django.http import HttpResponse
 from .models import Photo
 #.models 는 photo.models와 같은 내용인데 views.py와 같은 path에 있기 때문
 
+# view함수는 언제나 첫 번쨰 인자로 request 객체를 전달 받는다.
+
 def single_photo(req, photo_id):
 	# try:
 	# 	photo = Photo.objects.get(pk=photo_id)
@@ -24,6 +26,28 @@ def single_photo(req, photo_id):
 			photo_url=photo.image_file.url
 	    )
 	)
+
+from .forms import PhotoEditForm
+
+def new_photo(request):
+	if request.method == "GET":
+		edit_form = PhotoEditForm()
+	elif request.method == "POST":
+		edit_form = PhotoEditForm(request.POST, request.FILES)
+		if edit_form.is_valid():
+			new_photo = edit_form.save()
+			return redirect(new_photo.get_absolute_url())
+
+	return render(request, 'new_photo.html', {'form': edit_form})
+	# PhotoEditForm class 객체를 인스턴스 객체로 생성한 edit_form 을 전달
+
+# render는 대개 세 가지 인자를 필요로 함. request, template file, template context
+# request는 Template 에서 context로 request객체 를 지정하는(mapping)하는데 사용됨
+# 두 번째 인자는 template file path를 문자열로 지정
+# 세 번째 인자는 template file안에서 사용할 context를 dict객체로 전달.
+# key인 'form'은 template파일 안에서 form이라는 이름으로 사용하는 template 변수가 됨
+# value인 edit_form (PhotoEditForm()의 인스턴스 객체)가 이 템플릿 변수에 연결된 객체
+
 # single_photo(req, photo_id)
 # 첫 번째로 받는 req 인지는 request와 관련된 여러 정보와 기능을 수행
 # urls.py 에서 view 함수로 넘길 인자 이름을 지정하지 않아도 된다. args로 표현
