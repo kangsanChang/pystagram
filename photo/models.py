@@ -2,6 +2,7 @@
 
 from __future__ import unicode_literals
 from django.db import models
+from django.core.urlresolvers import reverse_lazy
 
 # django db 의 models 를 상속받음.
 
@@ -15,6 +16,9 @@ class Photo(models.Model):
 			self.image_file.delete()
 			self.filtered_image_file.delete()
 			super(Photo, self).delete(*args, **kwargs)
+
+		def get_absolute_url(self):
+			return reverse_lazy('view_single_photo', kwargs={'photo_id': self.id})
 
 # image_file 과 filtered_image_file 의 upload_to 경로는 사실 settings.py에서 해야한다
 # 나중에 수정 할 것임.

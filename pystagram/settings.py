@@ -124,8 +124,3 @@ USE_TZ = True
 STATIC_URL = '/static/'
 MEDIA_URL = '/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static_files')
-
-TEMPLATE_DIRS = (
-    os.path.join(BASE_DIR, 'templates'),
-)
-# not vailid setting over django 1.8
