@@ -1,5 +1,5 @@
 # coding : utf-8
-
+#-*- coding: utf-8-*-
 """
 Django settings for pystagram project.
 
@@ -124,3 +124,6 @@ USE_TZ = True
 STATIC_URL = '/static/'
 MEDIA_URL = '/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static_files')
+LOGIN_URL = '/accounts/login/' # 원래 default값임. 이 url이 아닐경우 따로 지정
+LOGOUT_URL = 'accounts/logout/' # 원래 default값
+LOGIN_REDIRECT_URL = '/photo/upload/'

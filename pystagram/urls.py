@@ -27,14 +27,19 @@ from photo import views
 
 # url 함수는 regex,view,name,kwargs 총4개의 인자를 받는데 이중 regex와 view는 필수이다.
 # django 이전 버전에서는 view 부분을 string 으로 적엇는데 이젠 그냥 적어준다.
-# name 인자는 template에서 url연결자 이름으로 주소를 출력하는 등의 편의에 쓰인다.
+# name 인자는 template에서 url연결자 이름으로 주소를 출력하는 등의 편의에 쓰인다!!!
 
+from django.contrib.auth import views as auth_views
 urlpatterns = [
         url(r'^photo/(?P<photo_id>\d+)$', views.single_photo, name='view_single_photo'),
         url(r'^admin/', admin.site.urls),
         url(r'^photo/upload/$', views.new_photo, name='new_photo'),
+        url(r'^accounts/login/',  auth_views.login , {'template_name':'login.html'}, name='login'),
+        url(r'^accounts/logout/',  auth_views.logout , {'text_page':'/login/', } ,name='logout'),
 ]
 
+# login, logout 시 django 내장 뷰 함수인 auth.login ,logout 를 이용
+# 로그인 url, 로그아웃 url, 로그인 후 리다이렉트 될 곳은 settings.py에서 다룬다.
 from django.conf import settings
 from django.conf.urls.static import static
 
